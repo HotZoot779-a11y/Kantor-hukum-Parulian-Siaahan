@@ -213,55 +213,51 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+
+
     /* ============================================
-       BACK TO TOP BUTTON
+       WHATSAPP FLOAT BUTTON
        ============================================ */
-    let backToTopButton = document.querySelector('.back-to-top');
+    let whatsappButton = document.querySelector('.whatsapp-float');
     
-    if (!backToTopButton) {
-        backToTopButton = document.createElement('a');
-        backToTopButton.href = '#';
-        backToTopButton.className = 'back-to-top';
-        backToTopButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
-        backToTopButton.style.cssText = `
+    if (!whatsappButton) {
+        whatsappButton = document.createElement('a');
+        whatsappButton.href = 'https://wa.me/628118168500?text=Hi%2C%20saya%20ingin%20konsultasi%20hukum';
+        whatsappButton.className = 'whatsapp-float';
+        whatsappButton.target = '_blank';
+        whatsappButton.rel = 'noopener noreferrer';
+        whatsappButton.innerHTML = '<i class="fab fa-whatsapp"></i>';
+        whatsappButton.style.cssText = `
             position: fixed;
             bottom: 30px;
             right: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: #c9a227;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 28px;
             cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
             z-index: 9999;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            opacity: 1;
+            visibility: visible;
         `;
-        document.body.appendChild(backToTopButton);
+        document.body.appendChild(whatsappButton);
     }
     
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 300) {
-            backToTopButton.style.opacity = '1';
-            backToTopButton.style.visibility = 'visible';
-        } else {
-            backToTopButton.style.opacity = '0';
-            backToTopButton.style.visibility = 'hidden';
-        }
+    whatsappButton.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.1)';
+        this.style.boxShadow = '0 6px 20px rgba(37, 211, 102, 0.6)';
     });
     
-    backToTopButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+    whatsappButton.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+        this.style.boxShadow = '0 4px 12px rgba(37, 211, 102, 0.4)';
     });
 
     /* ============================================
