@@ -164,9 +164,33 @@ img {
     justify-content: space-between;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .logo img {
     height: 60px;
     width: auto;
+}
+
+.logo-text {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    white-space: nowrap;
+}
+
+.header.header-scrolled .logo-text {
+    color: var(--text-dark);
+}
+
+@media (max-width: 768px) {
+    .logo-text {
+        display: none;
+    }
 }
 
 .nav-menu {
@@ -267,7 +291,7 @@ img {
 }
 
 .hero-subtitle {
-    font-size: 18px;
+    font-size: 15px;
     color: rgba(255, 255, 255, 0.85);
     margin-bottom: 40px;
     line-height: 1.8;
@@ -642,7 +666,6 @@ section {
 
 .about-img-main {
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-lg);
 }
 
 .about-img-secondary {
@@ -1435,4 +1458,11 @@ section {
 /* Smooth scroll for anchor links */
 html {
     scroll-behavior: smooth;
+}
+
+.img-besar {
+    max-width: 1000px;  /* BESAR SESUKA KAMU */
+    width: 150%;
+    height: auto;
+    object-fit: cover;
 }

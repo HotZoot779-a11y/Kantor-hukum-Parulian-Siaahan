@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Parulian Siahaan & Partners - Artikel dan informasi terbaru tentang hukum Indonesia, tips hukum, dan perkembangan dunia hukum. Konsultasi hukum profesional di Jakarta Barat.">
+    <meta name="keywords" content="blog hukum, artikel hukum, tips hukum, parulian siahaan, news hukum, informasi hukum">
+    <meta name="author" content="Parulian Siahaan & Partners">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Blog Hukum - Parulian Siahaan & Partners">
+    <meta property="og:description" content="Artikel dan informasi terbaru tentang hukum Indonesia">
+    <meta property="og:type" content="website">
+    <title>Blog Hukum - Parulian Siahaan & Partners</title>
+    <link rel="canonical" href="https://paruliansiaahanpartners.com/blog/blog.html">
+    <link rel="icon" type="image/png" href="../Assets/Logo.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Blog Page Specific Styles */
+        .blog-hero {
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.95), rgba(15, 39, 68, 0.95)), url('../Assets/gabrielle-henderson-HJckKnwCXxQ-unsplash.jpg') center/cover no-repeat;
+            padding: 200px 0 100px;
+            text-align: center;
+            color: white;
+        }
+        
+        .blog-hero h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .blog-hero p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .blog-section {
+            padding: 80px 0;
+            background-color: var(--off-white);
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .blog-card-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .blog-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .blog-card:hover .blog-card-image img {
+            transform: scale(1.1);
+        }
+        
+        .blog-card-content {
+            padding: 25px;
+        }
+        
+        .blog-card-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: var(--text-light);
+        }
+        
+        .blog-card-meta i {
+            color: var(--accent-color);
+        }
+        
+        .blog-card-title {
+            font-size: 20px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .blog-card-title a {
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+        
+        .blog-card-title a:hover {
+            color: var(--accent-color);
+        }
+        
+        .blog-card-excerpt {
+            color: var(--text-medium);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+        
+        .blog-card-link {
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .blog-card-link:hover {
+            gap: 12px;
+        }
+        
+        .blog-card-link i {
+            transition: var(--transition);
+        }
+        
+        .blog-card:hover .blog-card-link i {
+            transform: translateX(5px);
+        }
+        
+        /* Featured Post */
+        .featured-post {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            margin-bottom: 50px;
+        }
+        
+        .featured-post-image {
+            height: 100%;
+            min-height: 400px;
+        }
+        
+        .featured-post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .featured-post-content {
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .featured-badge {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            width: fit-content;
+        }
+        
+        .featured-post-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        
+        .featured-post-title a {
+            color: var(--text-dark);
+        }
+        
+        .featured-post-title a:hover {
+            color: var(--accent-color);
+        }
+        
+        .featured-post-excerpt {
+            color: var(--text-medium);
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+        
+        /* Categories */
+        .categories-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .category-tabs {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            justify-content: center;
+        }
+        
+        .category-tab {
+            padding: 12px 24px;
+            background: var(--light-gray);
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .category-tab:hover,
+        .category-tab.active {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        /* Newsletter */
+        .newsletter-section {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-content h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            color: white;
+        }
+        
+        .newsletter-content p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 16px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 15px;
+        }
+        
+        .newsletter-form button {
+            padding: 16px 32px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .newsletter-form button:hover {
+            background: var(--accent-hover);
+        }
+        
+        @media (max-width: 1024px) {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .featured-post {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-post-image {
+                min-height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-hero h1 {
+                font-size: 36px;
+            }
+            
+            .featured-post-title {
+                font-size: 24px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header header-scrolled">
+        <div class="container">
+            <nav class="navbar">
+                <a href="../index.html" class="logo">
+                    <img src="../Assets/Logo.png" alt="Parulian Siahaan & Partners Logo">
+                    <span class="logo-text">Parulian Siahaan</span>
+                </a>
+
+                <ul class="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Beranda</a></li>
+                    <li><a href="../about.html" class="nav-link">Tentang Kami</a></li>
+                    <li><a href="../services.html" class="nav-link">Layanan</a></li>
+                    <li><a href="blog.html" class="nav-link active">Blog</a></li>
+                    <li><a href="../contact.html" class="nav-link">Kontak</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="container">
+            <h1>Blog <span class="highlight">Hukum</span></h1>
+            <p>Artikel dan informasi terbaru tentang hukum Indonesia, tips hukum, dan perkembangan dunia hukum untuk Anda</p>
+        </div>
+    </section>
+
+    <!-- Featured Post -->
+    <section class="blog-section" style="padding-top: 60px;">
+        <div class="container">
+            <div class="featured-post">
+                <div class="featured-post-image">
+                    <img src="../Assets/pexels-sora-shimazaki-5673472.jpg" alt="Featured Post">
+                </div>
+                <div class="featured-post-content">
+                    <span class="featured-badge">Artikel Utama</span>
+                    <h2 class="featured-post-title">
+                        <a href="artikel-6-alasan-menyewa-pengacara.html">6 Alasan untuk Menyewa Pengacara Tetap untuk Bisnis Anda</a>
+                    </h2>
+                    <div class="blog-card-meta">
+                        <span><i class="far fa-calendar"></i> 20 Januari 2025</span>
+                        <span><i class="far fa-user"></i> Parulian Siahaan</span>
+                    </div>
+                    <p class="featured-post-excerpt">Bagi Pemilik usaha baik kecil, menengah maupun besar selalu memastikan setiap bagian dari usaha mereka berjalan dengan lancar. Pengacara bisnis dapat membantu mengatasi atau menghindarinya sejak awal, saat terjadinya maupun pasca terjadinya permasalahan hukum bisnis Anda...</p>
+                    <a href="artikel-6-alasan-menyewa-pengacara.html" class="btn btn-primary">Baca Selengkapnya</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Grid -->
+    <section class="blog-section">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-tag">Artikel Terbaru</span>
+                <h2 class="section-title">Berita & Artikel Hukum</h2>
+            </div>
+            
+            <!-- <div class="category-tabs">
+                <span class="category-tab active">Semua</span>
+                <span class="category-tab">Hukum Perdata</span>
+                <span class="category-tab">Hukum Pidana</span>
+                <span class="category-tab">Hukum Bisnis</span>
+                <span class="category-tab">Properti</span>
+            </div> -->
+
+            <div class="blog-grid">
+                <!-- Blog Card 1 -->
+                <div class="blog-card">
+                    <div class="blog-card-image">
+                        <img src="../Assets/pexels-mikhail-nilov-8731041.jpg" alt="Retainer Lawyer">
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span><i class="far fa-calendar"></i> 18 Januari 2025</span>
+                            <span><i class="far fa-clock"></i> 8 menit</span>
+                        </div>
+                        <h3 class="blog-card-title">
+                            <a href="artikel-manfaat-retainer.html">Manfaat Menggunakan Firma Hukum sebagai Retainer</a>
+                        </h3>
+                        <p class="blog-card-excerpt">Pernah mendengar orang mengatakan bahwa mereka memiliki pengacara yang "dikontrak"? Pelajari manfaat menjadi klien tetap firma hukum...</p>
+                        <a href="artikel-manfaat-retainer.html" class="blog-card-link">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Butuh Konsultasi Hukum?</h2>
+                <p class="cta-subtitle">Tim pengacara kami siap membantu menyelesaikan masalah hukum Anda</p>
+                <a href="../contact.html" class="btn btn-primary btn-large">Hubungi Kami</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="../index.html" class="footer-logo">
+                        <img src="../Assets/Logo_Full.png" alt="Parulian Siahaan & Partners">
+                    </a>
+                    <p>Kantor hukum terpercaya di Jakarta Barat dengan pengalaman lebih dari 6 tahun dalam menangani berbagai kasus hukum.</p>
+                    <div class="footer-social">
+                        <a href="https://wa.me/628118168500" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/kantorhukum_paruliansiahaan/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://id.linkedin.com/in/parulian-siahaan-01001a124" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Tautan Cepat</h4>
+                    <ul>
+                        <li><a href="../index.html">Beranda</a></li>
+                        <li><a href="../about.html">Tentang Kami</a></li>
+                        <li><a href="../services.html">Layanan</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="../contact.html">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-services">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="../services.html">Hukum Perdata</a></li>
+                        <li><a href="../services.html">Hukum Pidana</a></li>
+                        <li><a href="../services.html">Hukum Bisnis</a></li>
+                        <li><a href="../services.html">Properti & Tanah</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Kontak</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Jl. Pelopor No.15-16 Blok O 5, RT.7/RW.11, Tegal Alur, Kec. Kalideres, Kota Jakarta Barat, DKI Jakarta 11820</li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:08118168500">0811-8168-500</a></li>
+                        <li><i class="fas fa-envelope"></i> info@paruliansiaahanpartners.com</li>
+                        <li><i class="fas fa-clock"></i> Senin - Jumat: 08.00 - 17.00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Parulian Siahaan & Partners. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+        // Category tabs functionality
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Newsletter form
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            if(email) {
+                alert('Terima kasih! Anda telah berlangganan newsletter kami.');
+                this.querySelector('input').value = '';
+            }
+        });
+    </script>
+</body>
+</html>
