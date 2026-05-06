@@ -1462,7 +1462,7 @@ html {
 
 .img-besar {
     max-width: 1000px;  /* BESAR SESUKA KAMU */
-    width: 150%;
+    width: 100%;
     height: auto;
     object-fit: cover;
 }
