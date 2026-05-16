@@ -271,7 +271,8 @@
         e.preventDefault();
         const name = document.getElementById('teamName').value.trim();
         const role = document.getElementById('teamRole').value.trim();
-        const description = document.getElementById('teamDescription').value.trim();
+        const descEl = document.getElementById('teamDescription');
+        const description = descEl ? descEl.value.trim() : '';
         const image = document.getElementById('teamImage').value.trim();
 
         const items = getJSON(TEAM_KEY, []);
