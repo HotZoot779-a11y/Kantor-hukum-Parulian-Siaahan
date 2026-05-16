@@ -144,7 +144,7 @@ dengan visi dan misi untuk memberikan bantuan hukum yang berkualitas dan sangat 
                 <h2 class="section-title">Tim Pengacara Berpengalaman</h2>
                 <p class="section-subtitle">Tim profesional yang siap membantu Anda</p>
             </div>
-            <div class="team-grid">
+            <div class="team-grid" id="teamGrid">
                 <div class="team-card">
                     <div class="team-image">
                         <img src="/Kantor-hukum-Parulian-Siaahan/Assets/Siahaan.jpeg" alt="Parulian Siahaan">
@@ -163,6 +163,9 @@ dengan visi dan misi untuk memberikan bantuan hukum yang berkualitas dan sangat 
                         <span class="team-role">Rekan</span>
                     </div>
                 </div>
+
+                <!-- Admin tim (dynamic, append-only) -->
+                <div id="adminTeamMount"></div>
             </div>
         </div>
     </section>
@@ -282,5 +285,60 @@ dengan visi dan misi untuk memberikan bantuan hukum yang berkualitas dan sangat 
     </footer>
 
     <script src="/Kantor-hukum-Parulian-Siaahan/js/script.js"></script>
+    <script>
+        // ===== Admin Team from localStorage (append-only) =====
+        (function(){
+            const TEAM_KEY = 'psb_tim';
+            const mount = document.getElementById('adminTeamMount');
+            if(!mount) return;
+
+            function escapeHTML(str){
+                return String(str)
+                    .replaceAll('&','&amp;')
+                    .replaceAll('<','<')
+                    .replaceAll('>','>')
+                    .replaceAll('"','"')
+                    .replaceAll("'",'&#039;');
+            }
+
+            function getJSON(key, fallback){
+                try{
+                    const raw = localStorage.getItem(key);
+                    if(!raw) return fallback;
+                    return JSON.parse(raw);
+                }catch(e){
+                    return fallback;
+                }
+            }
+
+            const teams = getJSON(TEAM_KEY, []);
+            if(!Array.isArray(teams) || teams.length === 0) return;
+
+            const fragment = document.createDocumentFragment();
+
+            teams.forEach(t => {
+                const name = escapeHTML(t.name || '');
+                const role = escapeHTML(t.role || '');
+                const description = escapeHTML(t.description || '');
+                const image = escapeHTML(t.image || '');
+
+                const card = document.createElement('div');
+                card.className = 'team-card';
+                card.innerHTML = `
+                    <div class="team-image">
+                        <img src="${image || '/Kantor-hukum-Parulian-Siaahan/Assets/Logo.png'}" alt="${name}">
+                    </div>
+                    <div class="team-info">
+                        <h3>${name}</h3>
+                        <span class="team-role">${role}</span>
+                        <p>${description}</p>
+                    </div>
+                `;
+                fragment.appendChild(card);
+            });
+
+            mount.appendChild(fragment);
+        })();
+    </script>
 </body>
 </html>

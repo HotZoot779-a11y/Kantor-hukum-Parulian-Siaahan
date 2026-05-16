@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Admin - Parulian Siahaan & Partners</title>
+    <link rel="icon" type="image/png" href="/Kantor-hukum-Parulian-Siaahan/Assets/Logo.png" />
+    <link rel="stylesheet" href="/Kantor-hukum-Parulian-Siaahan/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        .admin-wrap{padding:140px 0 80px;}
+        .admin-card{background:white;border-radius:var(--border-radius);box-shadow:var(--shadow-md);border:1px solid var(--light-gray);padding:30px;max-width:900px;margin:0 auto;}
+        .admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+        .admin-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;}
+        .form-row{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+        .form-row label{font-weight:600;font-size:14px;color:var(--text-dark)}
+        .form-row input,.form-row textarea{padding:14px 16px;border:1px solid var(--light-gray);border-radius:var(--border-radius);font-family:var(--font-body);font-size:15px;}
+        .form-row textarea{min-height:110px;resize:vertical;}
+        .muted{color:var(--text-medium);font-size:13px;line-height:1.6}
+        .admin-subtitle{margin:8px 0 18px;color:var(--text-medium)}
+        .section-divider{height:1px;background:var(--light-gray);margin:26px 0;}
+        @media(max-width:768px){.admin-grid{grid-template-columns:1fr;}}
+        .tableish{background:var(--off-white);border:1px dashed var(--light-gray);border-radius:var(--border-radius);padding:14px;}
+        .pill{display:inline-flex;align-items:center;gap:8px;background:var(--light-gray);padding:8px 12px;border-radius:999px;font-weight:600;font-size:12px;color:var(--text-medium)}
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <nav class="navbar">
+            <a href="/Kantor-hukum-Parulian-Siaahan/index.html" class="logo" style="display:flex;align-items:center;text-decoration:none;">
+                <img src="/Kantor-hukum-Parulian-Siaahan/Assets/Logo.png" alt="Parulian Siahaan & Partners Logo" style="height:50px;margin-right:12px;">
+                <div style="display:flex;flex-direction:column;line-height:1;">
+                    <span style="font-family:'Georgia',serif;font-size:15px;letter-spacing:0px;color:#bfa46f;font-weight:500;">PARULIAN SIAHAAN & PARTNERS</span>
+                    <span style="font-family:'Georgia',serif;font-size:10px;letter-spacing:0px;color:#bfa46f;margin-top:2px;">ADMIN PANEL</span>
+                </div>
+            </a>
+            <ul class="nav-menu" style="gap:20px;">
+                <li><a href="/Kantor-hukum-Parulian-Siaahan/blog/blog.html" class="nav-link">Blog</a></li>
+                <li><a href="/Kantor-hukum-Parulian-Siaahan/about.html" class="nav-link">Tim</a></li>
+                <li><a href="javascript:void(0)" id="adminLogoutLink" class="nav-link" style="color:var(--accent-color);display:none;">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="admin-wrap">
+    <div class="admin-card">
+        <h1>Panel Admin</h1>
+        <p class="admin-subtitle">Tambah blog & tim tanpa menghapus data yang sudah ada (tersimpan di <b>localStorage</b>).</p>
+
+        <div id="loginSection">
+            <div class="admin-grid">
+                <div>
+                    <div class="form-row">
+                        <label for="adminPassword">Password Admin</label>
+                        <input id="adminPassword" type="password" placeholder="Masukkan password" />
+                    </div>
+                    <div class="admin-actions">
+                        <button id="adminLoginBtn" class="btn btn-primary">Login</button>
+                        <span class="muted">Default: <b>admin123</b> (ubah dengan mengganti konstanta di script admin).</span>
+                    </div>
+                </div>
+                <div class="tableish">
+                    <div class="pill"><i class="fas fa-lock"></i> Proteksi Sederhana</div>
+                    <p class="muted" style="margin-top:10px;">
+                        Karena project ini tanpa backend, login hanya disimpan di sesi browser.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="adminContent" style="display:none;">
+            <div class="admin-grid">
+                <div>
+                    <h2>Tambah Blog</h2>
+                    <div class="section-divider"></div>
+
+                    <form id="addBlogForm">
+                        <div class="form-row">
+                            <label for="blogTitle">Judul</label>
+                            <input id="blogTitle" name="blogTitle" type="text" required />
+                        </div>
+                        <div class="form-row">
+                            <label for="blogSlug">Slug (untuk link)</label>
+                            <input id="blogSlug" name="blogSlug" type="text" placeholder="contoh: artikel-baru" required />
+                            <span class="muted">Link akan mengarah ke: <b>/Kantor-hukum-Parulian-Siaahan/blog/blog-added-<slug>.html</b></span>
+                        </div>
+                        <div class="form-row">
+                            <label for="blogDate">Tanggal</label>
+                            <input id="blogDate" name="blogDate" type="date" required />
+                        </div>
+                        <div class="form-row">
+                            <label for="blogAuthor">Author</label>
+                            <input id="blogAuthor" name="blogAuthor" type="text" required />
+                        </div>
+                        <div class="form-row">
+                            <label for="blogExcerpt">Excerpt</label>
+                            <textarea id="blogExcerpt" name="blogExcerpt" required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <label for="blogImage">Image URL (opsional)</label>
+                            <input id="blogImage" name="blogImage" type="text" placeholder="contoh: /Kantor-hukum-Parulian-Siaahan/Assets/..." />
+                        </div>
+                        <div class="admin-actions">
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-plus"></i> Tambah Blog</button>
+                            <button class="btn btn-secondary" type="button" id="clearBlogsBtn"><i class="fas fa-eraser"></i> Hapus Semua Data Blog Admin</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div>
+                    <h2>Tambah Tim</h2>
+                    <div class="section-divider"></div>
+
+                    <form id="addTeamForm">
+                        <div class="form-row">
+                            <label for="teamName">Nama</label>
+                            <input id="teamName" name="teamName" type="text" required />
+                        </div>
+                        <div class="form-row">
+                            <label for="teamRole">Role</label>
+                            <input id="teamRole" name="teamRole" type="text" required />
+                        </div>
+                        <div class="form-row">
+                            <label for="teamDescription">Deskripsi</label>
+                            <textarea id="teamDescription" name="teamDescription" required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <label for="teamImage">Image URL (opsional)</label>
+                            <input id="teamImage" name="teamImage" type="text" placeholder="contoh: /Kantor-hukum-Parulian-Siaahan/Assets/..." />
+                        </div>
+                        <div class="admin-actions">
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-plus"></i> Tambah Tim</button>
+                            <button class="btn btn-secondary" type="button" id="clearTeamBtn"><i class="fas fa-eraser"></i> Hapus Semua Data Tim Admin</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+            <div>
+                <button class="btn btn-outline" id="viewDataBtn" type="button"><i class="fas fa-eye"></i> Lihat Data Tersimpan</button>
+                <div id="dataPreview" class="muted" style="margin-top:12px;white-space:pre-wrap;display:none;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/Kantor-hukum-Parulian-Siaahan/js/script.js"></script>
+<script>
+    // Konstanta login admin (tanpa backend)
+    const ADMIN_PASSWORD = 'admin123';
+
+    const ADMIN_SESSION_KEY = 'psb_admin_session';
+    const BLOG_KEY = 'psb_blogs';
+    const TEAM_KEY = 'psb_tim';
+
+    function escapeHTML(str){
+        return String(str)
+            .replaceAll('&','&amp;')
+            .replaceAll('<','<')
+            .replaceAll('>','>')
+            .replaceAll('"','"')
+            .replaceAll("'",'&#039;');
+    }
+
+    function getJSON(key, fallback){
+        try{
+            const raw = localStorage.getItem(key);
+            if(!raw) return fallback;
+            return JSON.parse(raw);
+        }catch(e){
+            return fallback;
+        }
+    }
+
+    function setJSON(key, value){
+        localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function setAdminSession(){
+        sessionStorage.setItem(ADMIN_SESSION_KEY, '1');
+    }
+
+    function isAdminLoggedIn(){
+        return sessionStorage.getItem(ADMIN_SESSION_KEY) === '1';
+    }
+
+    function logout(){
+        sessionStorage.removeItem(ADMIN_SESSION_KEY);
+        location.reload();
+    }
+
+    const loginSection = document.getElementById('loginSection');
+    const adminContent = document.getElementById('adminContent');
+    const adminLogoutLink = document.getElementById('adminLogoutLink');
+
+    function syncUI(){
+        const ok = isAdminLoggedIn();
+        if(ok){
+            loginSection.style.display='none';
+            adminContent.style.display='block';
+            adminLogoutLink.style.display='inline-block';
+        }else{
+            loginSection.style.display='block';
+            adminContent.style.display='none';
+            adminLogoutLink.style.display='none';
+        }
+    }
+
+    syncUI();
+
+    document.getElementById('adminLoginBtn').addEventListener('click', function(){
+        const pass = document.getElementById('adminPassword').value;
+        if(pass === ADMIN_PASSWORD){
+            setAdminSession();
+            syncUI();
+            showAlert('Login admin berhasil!', 'success');
+            document.getElementById('adminPassword').value='';
+        }else{
+            showAlert('Password admin salah.', 'error');
+        }
+    });
+
+    adminLogoutLink.addEventListener('click', logout);
+
+    // Blog add
+    document.getElementById('addBlogForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        const title = document.getElementById('blogTitle').value.trim();
+        const slug = document.getElementById('blogSlug').value.trim();
+        const date = document.getElementById('blogDate').value;
+        const author = document.getElementById('blogAuthor').value.trim();
+        const excerpt = document.getElementById('blogExcerpt').value.trim();
+        const image = document.getElementById('blogImage').value.trim();
+
+        if(!slug){
+            showAlert('Slug blog wajib diisi.', 'error');
+            return;
+        }
+
+        const items = getJSON(BLOG_KEY, []);
+
+        const newItem = {
+            id: crypto && crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+            title: escapeHTML(title),
+            slug: slug.replace(/\s+/g,'-').toLowerCase(),
+            date: date,
+            author: escapeHTML(author),
+            excerpt: escapeHTML(excerpt),
+            image: image ? escapeHTML(image) : ''
+        };
+
+        items.unshift(newItem); // newest first
+        setJSON(BLOG_KEY, items);
+
+        this.reset();
+        document.getElementById('blogDate').value = new Date().toISOString().slice(0,10);
+        showAlert('Blog ditambahkan (tanpa menghapus blog yang ada).', 'success');
+    });
+
+    // Team add
+    document.getElementById('addTeamForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        const name = document.getElementById('teamName').value.trim();
+        const role = document.getElementById('teamRole').value.trim();
+        const description = document.getElementById('teamDescription').value.trim();
+        const image = document.getElementById('teamImage').value.trim();
+
+        const items = getJSON(TEAM_KEY, []);
+        const newItem = {
+            id: crypto && crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+            name: escapeHTML(name),
+            role: escapeHTML(role),
+            description: escapeHTML(description),
+            image: image ? escapeHTML(image) : ''
+        };
+
+        items.unshift(newItem);
+        setJSON(TEAM_KEY, items);
+
+        this.reset();
+        showAlert('Tim ditambahkan (tanpa menghapus tim yang ada).', 'success');
+    });
+
+    // Clear
+    document.getElementById('clearBlogsBtn').addEventListener('click', function(){
+        if(confirm('Hapus SEMUA data blog yang ditambahkan admin di browser ini?')){
+            setJSON(BLOG_KEY, []);
+            showAlert('Data blog admin dihapus.', 'success');
+        }
+    });
+
+    document.getElementById('clearTeamBtn').addEventListener('click', function(){
+        if(confirm('Hapus SEMUA data tim yang ditambahkan admin di browser ini?')){
+            setJSON(TEAM_KEY, []);
+            showAlert('Data tim admin dihapus.', 'success');
+        }
+    });
+
+    // Preview
+    document.getElementById('viewDataBtn').addEventListener('click', function(){
+        const blogs = getJSON(BLOG_KEY, []);
+        const teams = getJSON(TEAM_KEY, []);
+        const el = document.getElementById('dataPreview');
+        el.style.display='block';
+        el.textContent = JSON.stringify({blogs, teams}, null, 2);
+    });
+
+    // init default date
+    const d = document.getElementById('blogDate');
+    if(d && !d.value){ d.value = new Date().toISOString().slice(0,10); }
+</script>
+</body>
+</html>
+

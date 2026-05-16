@@ -421,8 +421,8 @@
                 <span class="category-tab">Properti</span>
             </div> -->
 
-            <div class="blog-grid">
-                <!-- Blog Card 1 -->
+            <div class="blog-grid" id="blogGrid">
+                <!-- Blog Card 1 (static) -->
                 <div class="blog-card">
                     <div class="blog-card-image">
                         <img src="/Kantor-hukum-Parulian-Siaahan/Assets/pexels-mikhail-nilov-8731041.jpg" alt="Retainer Lawyer">
@@ -440,7 +440,8 @@
                     </div>
                 </div>
 
-                
+                <!-- Admin blogs (dynamic, append-only) -->
+                <div id="adminBlogsMount"></div>
             </div>
         </div>
     </section>
@@ -525,6 +526,70 @@
                 this.querySelector('input').value = '';
             }
         });
+
+        // ===== Admin Blogs from localStorage (append-only) =====
+        (function(){
+            const BLOG_KEY = 'psb_blogs';
+            const mount = document.getElementById('adminBlogsMount');
+            if(!mount) return;
+
+            function escapeHTML(str){
+                return String(str)
+                    .replaceAll('&','&amp;')
+                    .replaceAll('<','<')
+                    .replaceAll('>','>')
+                    .replaceAll('"','"')
+                    .replaceAll("'",'&#039;');
+            }
+
+            function getJSON(key, fallback){
+                try{
+                    const raw = localStorage.getItem(key);
+                    if(!raw) return fallback;
+                    return JSON.parse(raw);
+                }catch(e){
+                    return fallback;
+                }
+            }
+
+            const blogs = getJSON(BLOG_KEY, []);
+            if(!Array.isArray(blogs) || blogs.length === 0) return;
+
+            const fragment = document.createDocumentFragment();
+
+            blogs.forEach(b => {
+                const title = escapeHTML(b.title || '');
+                const slug = escapeHTML(b.slug || '');
+                const date = escapeHTML(b.date || '');
+                const author = escapeHTML(b.author || '');
+                const excerpt = escapeHTML(b.excerpt || '');
+                const image = escapeHTML(b.image || '');
+
+                const href = '/Kantor-hukum-Parulian-Siaahan/blog/blog-added.html?slug=' + encodeURIComponent(slug);
+
+                const card = document.createElement('div');
+                card.className = 'blog-card';
+                card.innerHTML = `
+                    <div class="blog-card-image">
+                        <img src="${image || '/Kantor-hukum-Parulian-Siaahan/Assets/Logo.png'}" alt="${title}">
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span><i class="far fa-calendar"></i> ${date}</span>
+                            <span><i class="far fa-user"></i> ${author}</span>
+                        </div>
+                        <h3 class="blog-card-title">
+                            <a href="${href}">${title}</a>
+                        </h3>
+                        <p class="blog-card-excerpt">${excerpt}</p>
+                        <a href="${href}" class="blog-card-link">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                `;
+                fragment.appendChild(card);
+            });
+
+            mount.appendChild(fragment);
+        })();
     </script>
 </body>
 </html>

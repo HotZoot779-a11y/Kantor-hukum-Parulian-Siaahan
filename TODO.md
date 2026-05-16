@@ -1,19 +1,11 @@
-# TODO - Email Replacement Task (Replace "info@paruliansiaahanpartners.com" → "kantorhukum.paruliansiahaan@gmail.com")
+# TODO - Panel Admin Tambah Blog & Tim (tanpa backend)
 
-## Status: [DONE]
+## Langkah
+- [ ] Implementasi panel admin: admin.html (login + form tambah blog/tim + render & simpan ke localStorage)
+- [ ] Tambahkan render “Blog Ditambahkan” di blog/blog.html menggunakan data dari localStorage
+- [ ] Tambahkan render “Tim Ditambahkan” di about.html menggunakan data dari localStorage
+- [ ] Extend js/script.js dengan helper localStorage (get/save/escape) untuk admin & publik
+- [ ] Update navigation admin link (opsional) jika diperlukan
+- [x] Manual test: tambah blog/tim -> refresh halaman publik -> data tampil tanpa menghapus yang statis
 
-### Step 1: [✅] Create TODO.md 
-### Step 2: [✅] Replace email in 7 HTML files (parallel)
-   - [✅] index.html
-   - [✅] about.html
-   - [✅] services.html
-   - [✅] contact.html
-   - [✅] blog/blog.html
-   - [✅] blog/artikel-6-alasan-menyewa-pengacara.html
-   - [✅] blog/artikel-manfaat-retainer.html
-### Step 3: [✅] Verify all occurrences removed (global search)
-### Step 4: [✅] Test pages load correctly (manual: HTML edit only)
-### Step 5: [✅] Mark complete & attempt_completion
-
-**Total target replacements:** 8 instances across 7 files
 
