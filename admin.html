@@ -237,7 +237,8 @@
         const slug = document.getElementById('blogSlug').value.trim();
         const date = document.getElementById('blogDate').value;
         const author = document.getElementById('blogAuthor').value.trim();
-        const excerpt = document.getElementById('blogExcerpt').value.trim();
+        const excerptEl = document.getElementById('blogExcerpt');
+        const excerpt = excerptEl ? excerptEl.value.trim() : '';
         const image = document.getElementById('blogImage').value.trim();
 
         if(!slug){
