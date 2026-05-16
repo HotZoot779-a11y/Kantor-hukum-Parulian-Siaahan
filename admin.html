@@ -61,15 +61,10 @@
                     </div>
                     <div class="admin-actions">
                         <button id="adminLoginBtn" class="btn btn-primary">Login</button>
-                        <span class="muted">Default: <b>admin123</b> (ubah dengan mengganti konstanta di script admin).</span>
+                        
                     </div>
                 </div>
-                <div class="tableish">
-                    <div class="pill"><i class="fas fa-lock"></i> Proteksi Sederhana</div>
-                    <p class="muted" style="margin-top:10px;">
-                        Karena project ini tanpa backend, login hanya disimpan di sesi browser.
-                    </p>
-                </div>
+                
             </div>
         </div>
 
@@ -87,8 +82,9 @@
                         <div class="form-row">
                             <label for="blogSlug">Slug (untuk link)</label>
                             <input id="blogSlug" name="blogSlug" type="text" placeholder="contoh: artikel-baru" required />
-                            <span class="muted">Link akan mengarah ke: <b>/Kantor-hukum-Parulian-Siaahan/blog/blog-added-<slug>.html</b></span>
+                            <span class="muted">Link akan mengarah ke: <b>/Kantor-hukum-Parulian-Siaahan/blog/blog-added.html?slug=<slug></b></span>
                         </div>
+
                         <div class="form-row">
                             <label for="blogDate">Tanggal</label>
                             <input id="blogDate" name="blogDate" type="date" required />
@@ -108,6 +104,12 @@
                         <div class="admin-actions">
                             <button class="btn btn-primary" type="submit"><i class="fas fa-plus"></i> Tambah Blog</button>
                             <button class="btn btn-secondary" type="button" id="clearBlogsBtn"><i class="fas fa-eraser"></i> Hapus Semua Data Blog Admin</button>
+                            <button class="btn btn-secondary" type="button" id="deleteBlogByIdBtn"><i class="fas fa-trash"></i> Hapus Blog (by ID)</button>
+                            <div class="form-row" style="margin-bottom:0;">
+                                <label for="deleteBlogId">ID Blog</label>
+                                <input id="deleteBlogId" type="text" placeholder="contoh: 171..." />
+                            </div>
+
                         </div>
                     </form>
                 </div>
@@ -129,6 +131,10 @@
                             <label for="teamDescription">Deskripsi</label>
                             <textarea id="teamDescription" name="teamDescription" required></textarea>
                         </div>
+                        <div class="muted" style="margin-top:-6px;margin-bottom:16px;">
+                            Deskripsi akan disimpan, tapi bisa dihapus dari tampilan di halaman Tim.
+                        </div>
+
                         <div class="form-row">
                             <label for="teamImage">Image URL (opsional)</label>
                             <input id="teamImage" name="teamImage" type="text" placeholder="contoh: /Kantor-hukum-Parulian-Siaahan/Assets/..." />
@@ -136,6 +142,12 @@
                         <div class="admin-actions">
                             <button class="btn btn-primary" type="submit"><i class="fas fa-plus"></i> Tambah Tim</button>
                             <button class="btn btn-secondary" type="button" id="clearTeamBtn"><i class="fas fa-eraser"></i> Hapus Semua Data Tim Admin</button>
+                            <button class="btn btn-secondary" type="button" id="deleteTeamByIdBtn"><i class="fas fa-trash"></i> Hapus Tim (by ID)</button>
+                            <div class="form-row" style="margin-bottom:0;">
+                                <label for="deleteTeamId">ID Tim</label>
+                                <input id="deleteTeamId" type="text" placeholder="contoh: 171..." />
+                            </div>
+
                         </div>
                     </form>
                 </div>
@@ -153,7 +165,7 @@
 <script src="/Kantor-hukum-Parulian-Siaahan/js/script.js"></script>
 <script>
     // Konstanta login admin (tanpa backend)
-    const ADMIN_PASSWORD = 'admin123';
+    const ADMIN_PASSWORD = 'ParulianAdmin2026';
 
     const ADMIN_SESSION_KEY = 'psb_admin_session';
     const BLOG_KEY = 'psb_blogs';
@@ -285,6 +297,41 @@
 
         this.reset();
         showAlert('Tim ditambahkan (tanpa menghapus tim yang ada).', 'success');
+    });
+
+    // Delete by ID
+    document.getElementById('deleteBlogByIdBtn').addEventListener('click', function(){
+        const id = document.getElementById('deleteBlogId').value.trim();
+        if(!id){
+            showAlert('Masukkan ID blog yang ingin dihapus.', 'error');
+            return;
+        }
+        const items = getJSON(BLOG_KEY, []);
+        const next = (items || []).filter(x => String(x.id) !== id);
+        if(next.length === items.length){
+            showAlert('ID blog tidak ditemukan.', 'error');
+            return;
+        }
+        setJSON(BLOG_KEY, next);
+        document.getElementById('deleteBlogId').value = '';
+        showAlert('Blog berhasil dihapus.', 'success');
+    });
+
+    document.getElementById('deleteTeamByIdBtn').addEventListener('click', function(){
+        const id = document.getElementById('deleteTeamId').value.trim();
+        if(!id){
+            showAlert('Masukkan ID tim yang ingin dihapus.', 'error');
+            return;
+        }
+        const items = getJSON(TEAM_KEY, []);
+        const next = (items || []).filter(x => String(x.id) !== id);
+        if(next.length === items.length){
+            showAlert('ID tim tidak ditemukan.', 'error');
+            return;
+        }
+        setJSON(TEAM_KEY, next);
+        document.getElementById('deleteTeamId').value = '';
+        showAlert('Tim berhasil dihapus.', 'success');
     });
 
     // Clear
